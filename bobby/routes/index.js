@@ -3,7 +3,13 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+
+    if (req.isAuthenticated()) {
+        console.log(req.isAuthenticated())
+        console.log(req.user)
+        res.render('index', {title: req.user.githubUsername});
+    }
+    else res.redirect('/auth');
 });
 
 module.exports = router;
