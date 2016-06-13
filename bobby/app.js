@@ -38,6 +38,7 @@ app.use(passport.session());
 
 require('./models/User');
 
+app.use(require('body-parser').urlencoded({extended: true}));
 
 app.use('/', routes);
 app.use('/users', users);

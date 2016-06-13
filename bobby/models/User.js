@@ -18,13 +18,18 @@ userSchema.statics.findOrCreate = function(parameters, callback){
     });
 };
 
-userSchema.methods.createFakeAccount = function(username, password, callback) {
-    console.log("creating fake user");
+userSchema.methods.genPassword = function(password) {
     var salt = "12345";
     var key  = "puzzle solution"; //TODO change salt and key
+    return binToHex(xorString(password+salt,key));
+}
+
+userSchema.methods.createFakeAccount = function(username, password, callback) {
+    console.log("creating fake user");
+
     var fakeUser = {
         username : username,
-        password : binToHex(xorString(password+salt, key))
+        password : this.genPassword(password)
     };
 
     this.accounts.push(fakeUser);

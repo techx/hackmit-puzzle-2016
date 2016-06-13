@@ -3,11 +3,15 @@ var router = express.Router();
 
 var userController = require('../controllers/fake-user-controller');
 
+var authenticate = function(req, res, next) {
+    if (req.isAuthenticated()) return next();
+    res.redirect('/');
+};
 
-router.get('/login', userController.renderLogin);
-router.post('/login', userController.login);
+router.get('/login', authenticate, userController.renderLogin);
+router.post('/login', authenticate,  userController.login);
 
-router.get('/register', userController.renderRegister);
-router.post('/register', userController.register);
+router.get('/register', authenticate, userController.renderRegister);
+router.post('/register', authenticate, userController.register);
 
 module.exports = router;
