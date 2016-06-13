@@ -18,5 +18,53 @@ userSchema.statics.findOrCreate = function(parameters, callback){
     });
 };
 
+userSchema.methods.createFakeAccount = function(username, password, callback) {
+    console.log("creating fake user");
+    var salt = "12345";
+    var key  = "puzzle solution"; //TODO change salt and key
+    var fakeUser = {
+        username : username,
+        password : binToHex(xorString(password+salt, key))
+    };
+
+    this.accounts.push(fakeUser);
+    this.save(callback);
+};
+
+
+function xorString(a,b) {
+    return xor(textToBin(a), textToBin(b));
+}
+
+function xor(password, key) {
+    var xor = '';
+    for(var i=0;i<password.length;i++) {
+        xor += (password[i]^key[i]);
+    }
+    return xor;
+}
+function textToBin(text) {
+  var length = text.length,
+      output = [];
+  for (var i = 0;i < length; i++) {
+    var bin = text[i].charCodeAt().toString(2);
+    output.push(Array(8-bin.length+1).join("0") + bin);
+  }
+  return output.join("");
+}
+
+function binToHex(bin) {
+    return bin.replace(/\s*[01]{4}\s*/g, function(bin) {
+      return parseInt(bin,2).toString(16);
+    });
+}
+
+function binToString(bin) {
+    return bin.replace(/\s*[01]{8}\s*/g, function(bin) {
+      return String.fromCharCode(parseInt(bin, 2))
+    })
+  }
+
+
 module.exports = mongoose.model('User', userSchema);
 
