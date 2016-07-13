@@ -8,6 +8,8 @@ Setup
 
 `pip install -r requirements.txt`
 
+And then run `python app.py` once to initialize the DB.
+
 Running
 -------
 

@@ -1,0 +1,20 @@
+window.teams = [
+	'All-Stars',
+	'Angry Beavers',
+	'Big Bad Hoppers',
+	'Bombers',
+	'Corny Dogs',
+	'Coyotes',
+	'Fungo Bats',
+	'Galactic Martians',
+	'Giants',
+	'Hornets',
+	'Melonheads',
+	'Monsters',
+	'Rainbow Monkeys',
+	'Roadrunners',
+	'Rockets',
+	'Sluggers',
+	'Socks',
+	'Wombats'
+];
