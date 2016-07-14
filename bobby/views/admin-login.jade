@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1 Xavier Kalos Child Development Elementary
+
+
+  h2 You may log in here
+  h3 ADMINs ONLY!
+
+  form(method="POST", action="login")
+    label Username
+    input(name="username",type="text")
+    label Password
+    input(name="password",type="password")
+    button(name="submit", type="submit",value="submit")
+        | Submit
+
