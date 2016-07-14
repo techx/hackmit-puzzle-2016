@@ -6,7 +6,8 @@
 
 ### Running Locally
 - Run `npm install` to get all the node modules you need installed locally.
-- Run `node run-server` to start the server. It should be running at `localhost:3000`.
+- Run `npm run dev` to run the server with nodemon on port 3000.
+- Run `npm start` to start the server. It should be running at `localhost:3000`.
 
 ### Adding Modules
 - Run `npm install $PACKAGE_NAME --save`. The save flag adds the package to the `package.json` file. 
