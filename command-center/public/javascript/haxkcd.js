@@ -189,9 +189,10 @@ function linkFile(url) {
 
 Filesystem = {
 	'welcome.txt': {type:'file', read:function(terminal) {
-		terminal.print($('<h4>').text('Welcome to the unixkcd console.'));
-		terminal.print('To navigate the comics, enter "next", "prev", "first", "last", "display", or "random".');
-		terminal.print('Use "ls", "cat", and "cd" to navigate the filesystem.');
+		terminal.print($('<h4>').text('Welcome to the haxkcd console.'));
+		terminal.print('');
+		terminal.print('haxkcd comes with ABSOLUTELY NO WARRANTY, to the extent');
+		terminal.print('permitted by applicable law.');
 	}},
 	'license.txt': {type:'file', read:function(terminal) {
 		terminal.print($('<p>').html('Client-side logic for Wordpress CLI theme :: <a href="http://thrind.xamai.ca/">R. McFarland, 2006, 2007, 2008</a>'));
@@ -592,17 +593,7 @@ $(document).ready(function() {
 		Terminal.promptActive = true;
 	}
 	$('#screen').bind('cli-load', function(e) {
-		xkcd.get(null, function(data) {
-			if (data) {
-				xkcd.latest = data;
-				$('#screen').one('cli-ready', function(e) {
-					Terminal.runCommand('cat welcome.txt');
-				});
-				Terminal.runCommand('display '+xkcd.latest.num+'/'+pathFilename(xkcd.latest.img));
-			} else {
-				noData();
-			}
-		}, noData);
+		Terminal.runCommand('cat welcome.txt');
 	});
 
 	$(document).konami(function(){
@@ -621,8 +612,6 @@ $(document).ready(function() {
 			$('#screen').css('text-shadow', 'orangered 0 0 10px');
 		} else if (konamiCount == 3) {
 			shake($('#screen'));
-		} else if (konamiCount == 4) {
-			$('#screen').css('background', 'url(/unixkcd/over9000.png) center no-repeat');
 		}
 
 		$('<div>')
