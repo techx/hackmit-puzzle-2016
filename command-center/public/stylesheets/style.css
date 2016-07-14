@@ -11,11 +11,12 @@ body {
 }
 
 a {
-	color: #00B7FF;
+	color: #96A8C8;
+    text-decoration: none;
 }
 
 a:hover {
-	color: magenta;
+    text-decoration: underline;
 }
 
 .small-img {
