@@ -15,10 +15,51 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
     <style>
-    body {
-        padding-top: 70px;
-        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-    }
+            body {
+                margin-top: 50px;
+            }
+            @font-face {
+                font-family: "xkcd";
+                src: url('/static/humor-sans.ttf');
+            }
+
+            ol li.list-group-item {
+                list-style: decimal inside;
+                display: list-item;
+            }
+
+            #winners {
+                text-align: center;
+            }
+
+            #winners li{
+                margin-left: 35%;
+                margin-right: 35%;
+            }
+
+            .plotContainer {
+                text-align: center;
+            }
+
+            .plotContainer h3, .plotContainer svg {
+                font-family: 'xkcd', sans-serif;
+            }
+
+            path {
+                fill: none;
+                stroke-width: 2.5px;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+
+            path.axis {
+                stroke: black;
+            }
+
+            path.bgline {
+                stroke: white;
+                stroke-width: 6px;
+            }
     </style>
 
 </head>
@@ -49,7 +90,7 @@
     <div class="container">
 
         {% if got_it_wrong %}
-        <div class="alert alert-danger">
+        <div class="alert alert-danger" style="margin-top: 20px;">
           <strong>Uh oh!</strong> You didn't have a perfect bracket :(.
         </div>
         {% endif %}
@@ -69,7 +110,7 @@
 
         <div class="row">
             <h2>Last Year's Grand Sportsball Competition Rankings</h2>
-            <ol id="winners" class='team-rankings'>
+            <ol id="winners" class='team-rankings list-group'>
                 Loading...
             </ol>
         </div>
@@ -77,33 +118,36 @@
         <div class="row">
             <h2>The Statistics</h2>
             <p>To help you out, we've provided some statistics from this year's season about each team. Analyze them carefully - or don't! Maybe these'll help.</p>
+            <div id="winrateContainer">
+                <h3>Team Data</h3>
+            </div>
             <div id="statisticsContainer">
-                <strong>TODO</strong> Put statistics here in the final puzzle.
+                <h2>Fancy Charts</h2>
             </div>
         </div>
 
         <div class="row">
             <h2>Your Predictions for the Grand Sportsball Competition</h2>
             <p>Drag to order the teams by their final standing in this year's <em>Grand Sportsball Competition</em>.</p>
-            <ol id='predictions' class="team-rankings">
-                <li data-value='0'>All-Stars</li>
-                <li data-value='1'>Angry Beavers</li>
-                <li data-value='2'>Big Bad Hoppers</li>
-                <li data-value='3'>Bombers</li>
-                <li data-value='4'>Corny Dogs</li>
-                <li data-value='5'>Coyotes</li>
-                <li data-value='6'>Fungo Bats</li>
-                <li data-value='7'>Galactic Martians</li>
-                <li data-value='8'>Giants</li>
-                <li data-value='9'>Hornets</li>
-                <li data-value='10'>Melonheads</li>
-                <li data-value='11'>Monsters</li>
-                <li data-value='12'>Rainbow Monkeys</li>
-                <li data-value='13'>Roadrunners</li>
-                <li data-value='14'>Rockets</li>
-                <li data-value='15'>Sluggers</li>
-                <li data-value='16'>Socks</li>
-                <li data-value='17'>Wombats</li>
+            <ol id='predictions' class="team-rankings list-group">
+                <li data-value='0' class='list-group-item'>All-Stars</li>
+                <li data-value='1' class='list-group-item'>Angry Beavers</li>
+                <li data-value='2' class='list-group-item'>Big Bad Hoppers</li>
+                <li data-value='3' class='list-group-item'>Bombers</li>
+                <li data-value='4' class='list-group-item'>Corny Dogs</li>
+                <li data-value='5' class='list-group-item'>Coyotes</li>
+                <li data-value='6' class='list-group-item'>Fungo Bats</li>
+                <li data-value='7' class='list-group-item'>Galactic Martians</li>
+                <li data-value='8' class='list-group-item'>Giants</li>
+                <li data-value='9' class='list-group-item'>Hornets</li>
+                <li data-value='10' class='list-group-item'>Melonheads</li>
+                <li data-value='11' class='list-group-item'>Monsters</li>
+                <li data-value='12' class='list-group-item'>Rainbow Monkeys</li>
+                <li data-value='13' class='list-group-item'>Roadrunners</li>
+                <li data-value='14' class='list-group-item'>Rockets</li>
+                <li data-value='15' class='list-group-item'>Sluggers</li>
+                <li data-value='16' class='list-group-item'>Socks</li>
+                <li data-value='17' class='list-group-item'>Wombats</li>
             </ol>
             <form method='POST' action=''>
                 <input type="hidden" id="predictionInput" name="predictions" value="[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]" />
@@ -119,9 +163,10 @@
 
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" crossorigin="anonymous"></script>
 
-
+    <script src="http://d3js.org/d3.v2.min.js?2.10.0"></script>
 
     <script src="/static/js/teams.js"></script>
+    <script src="/static/js/xkcd.js"></script>
     <script src="/static/js/betting.js"></script>
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
