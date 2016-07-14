@@ -1,12 +1,12 @@
 extends layout
 block head
 block content
-    .user-column
+    .user-column.column
         h1 What's up #{currentUser}
         img(src="/assets/dino.jpg").comic.nav
         div.logout
             button#logout Leave
-    .content-column
+    .content-column.column
         div#error
         if puzzleParts.length == 0
             script

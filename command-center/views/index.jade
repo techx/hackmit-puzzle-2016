@@ -1,8 +1,9 @@
 extends layout
 
 block content
-  div.welcome
-    img(src="/assets/raptor.jpg")
-    h1= title
-    a(href="/auth/github")
-        button.github-login Github Login
+  div.column
+    div.welcome
+        img(src="/assets/raptor.jpg")
+        h1= title
+        a(href="/auth/github")
+            button.github-login Github Login

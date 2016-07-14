@@ -7,7 +7,7 @@ body {
 	padding: 50px;
 	font-size: 16pt;
     font-family: "xkcd", sans-serif;
-	background-color: white;
+	background-color: #96A8C8;
 }
 
 a {
@@ -31,17 +31,6 @@ a:hover {
 	margin: 50px;
 }
 
-.welcome {
-	padding:50px;
-	margin: 0 auto;
-	text-align: center;
-	color: black;
-	margin-top: 40px;
-	width: 400px;
-	height: 500px;
-	border: 2px solid black;
-}
-
 .logout {
 	margin-bottom:40px;
 }
@@ -63,6 +52,7 @@ button {
     border-radius: 2px;
     border: 2px solid black;
     cursor: pointer;
+    margin: 5px;
 }
 
 button:hover {
@@ -73,11 +63,25 @@ button:hover {
 	float: left;
 }
 
+.column {
+    background-color: white;
+    border: 1.5px solid #071419;
+    border-radius: 12px;
+    width: 48%;
+    margin: auto;
+}
+
+.welcome {
+    margin: 40px auto;
+    text-align: center;
+    width: 400px;
+    height: 500px;
+    border: 2px solid black;
+}
+
 .user-column {
 	float: left;
 	text-align: center;
-	width: 48%;
-    border: 2px solid black;
 }
 
 .puzzle-number {
@@ -104,9 +108,7 @@ button:hover {
 .content-column {
 	float: right;
 	text-align: center;
-	width: 48%;
 	min-height: 500px;
-	border: 2px solid black;
 	padding: 20px 0px;
 }
 
@@ -125,6 +127,7 @@ input {
 	font-family: "xkcd", sans-serif;
 	font-size: 12pt;
 	border-radius: 5px;
+    border: 1.5px solid #071419;
 	float: right;
 }
 
