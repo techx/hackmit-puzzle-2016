@@ -190,13 +190,14 @@ function linkFile(url) {
 Filesystem = {
 	'welcome.txt': {type:'file', read:function(terminal) {
 		terminal.print($('<h4>').text('Welcome to the haxkcd console.'));
-		terminal.print('');
+		terminal.print();
 		terminal.print('haxkcd comes with ABSOLUTELY NO WARRANTY, to the extent');
 		terminal.print('permitted by applicable law.');
 	}},
 	'license.txt': {type:'file', read:function(terminal) {
 		terminal.print($('<p>').html('Client-side logic for Wordpress CLI theme :: <a href="http://thrind.xamai.ca/">R. McFarland, 2006, 2007, 2008</a>'));
 		terminal.print($('<p>').html('jQuery rewrite and overhaul :: <a href="http://www.chromakode.com/">Chromakode, 2010</a>'));
+		terminal.print($('<p>').html('haxkcd :: <a href="https://hackmit.org/">HackMIT, 2016</a>'));
 		terminal.print();
 		$.each([
 			'This program is free software; you can redistribute it and/or',
