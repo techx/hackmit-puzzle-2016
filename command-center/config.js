@@ -32,7 +32,8 @@ config.admins = [ "katexyu",
                   "zareenc",
                   "Fertogo",
                   "mysticuno",
-                  "cmnord"
+                  "cmnord", 
+                  "stefren"
                   ];
 
 function check(answer) {
