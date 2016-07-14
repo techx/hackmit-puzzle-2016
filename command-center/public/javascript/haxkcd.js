@@ -188,6 +188,16 @@ function linkFile(url) {
 }
 
 Filesystem = {
+	'credits.txt': {type:'file', read:function(terminal) {
+		terminal.print('haxkcd was proudly built by:');
+		// sort these in alphabetical order?
+		terminal.print($('<p>').html('<a href="https://github.com/katexyu">Kate Yu</a>'));
+		terminal.print($('<p>').html('<a href="https://github.com/anishathalye">Anish Athalye</a>'));
+		terminal.print($('<p>').html('<a href="https://github.com/fertogo">Fernando Trujano</a>'));
+		terminal.print($('<p>').html('<a href="https://github.com/detry322">Jack Serrino</a>'));
+		terminal.print($('<p>').html('<a href="https://github.com/kimberli">Kimberli Zhong</a>'));
+		terminal.print($('<p>').html('<a href="https://github.com/andrewilyas">Andrew Ilyas</a>'));
+	}},
 	'welcome.txt': {type:'file', read:function(terminal) {
 		terminal.print($('<h4>').text('Welcome to the haxkcd console.'));
 		terminal.print();
