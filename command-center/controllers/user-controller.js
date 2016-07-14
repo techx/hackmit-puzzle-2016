@@ -2,14 +2,6 @@ var mongoose = require('mongoose');
 var UserController = {}
 var respondWithError = require('../utils/helpers').respondWithError;
 
-var convertToReadableFormat = function(timeout) {
-    if (timeout == 0) return 0;
-    seconds = parseInt(timeout % 60);
-    minutes = parseInt(timeout / 60);
-    time = minutes == 0 ? String(seconds) + " seconds" : String(minutes) + " minutes and " + String(seconds) + " seconds";
-    return time;
-}
-
 UserController.areThereSpotsLeft = function(req, res) {
     mongoose.model('User').count({ "completionTime" : { $ne: null}, "isSuspicious": false }
         , function(err, count){
@@ -21,7 +13,21 @@ UserController.areThereSpotsLeft = function(req, res) {
         });
 }
 
-UserController.getPuzzleStatus = function(req, res) {
+UserController.getIndex = function(req, res) {
+    mongoose.model('User').findById(req.user._id, function(err, user){
+        if (err) {
+            respondWithError(err, res);
+        } else if (!user) {
+            res.status(404).send({ "error": "This user does not exist." });
+        } else {
+            res.render('main', {
+                currentUser: user.githubUsername,
+            });
+        }
+    });
+};
+
+UserController.listPuzzles = function(req, res) {
     mongoose.model('User').findById(req.user._id, function(err, user){
         if (err) {
             respondWithError(err, res);
@@ -31,49 +37,49 @@ UserController.getPuzzleStatus = function(req, res) {
             user.getPuzzleParts(function(err, puzzleParts){
                 if (err) {
                     respondWithError(err, res);
-                } else if (puzzleParts.length != 0){
-                    puzzleParts[puzzleParts.length-1].getTimeout(function(err, timeout){
-                        if (err) {
-                            respondWithError(err, res);
-                        } else {
-                            puzzleParts[puzzleParts.length-1].timeout = convertToReadableFormat(timeout);
-                            res.render('main', { puzzleParts: puzzleParts,
-                                                 currentUser: user.githubUsername,
-                                                 userEmail: user.githubEmail,
-                                                 done: user.completionTime });
-                        }
-                    });
+                } else if (puzzleParts.length != 0) {
+                    if (err) {
+                        respondWithError(err, res);
+                    } else {
+                        res.status(200).send({
+                            puzzleParts: puzzleParts,
+                            done: user.completionTime
+                        });
+                    }
                 } else {
-                    res.render('main', { puzzleParts: [],
-                                         currentUser: user.githubUsername,
-                                         done: false });
+                    res.status(200).send({
+                        puzzleParts: [],
+                        done: false
+                    });
                 }
             });
         }
     });
 }
 
-UserController.updateEmail = function(req, res) {
-    if (!req.query.email) {
-        res.status(400).send({"error": "Email cannot be empty."});
-    } else {
-        mongoose.model('User').findById(req.user._id, function(err, user){
-            if (err) {
-                respondWithError(err, res);
-            } else if (!user) {
-                res.status(404).send({ "error": "This user does not exist." });
-            } else {
-                user.githubEmail = req.query.email;
-                user.save(function(err){
-                    if (err) {
-                        respondWithError(err, res);
-                    } else {
-                        res.status(200).send({ "message": "Update successful." });
-                    }
-                });
+UserController.finish = function(req, res) {
+    mongoose.model('User').findById(req.user._id, function(err, user){
+        if (err) {
+            respondWithError(err, res);
+        } else if (!user) {
+            res.status(404).send({ "error": "This user does not exist." });
+        } else if (!user.completionTime) {
+            res.status(200).send({ "message": "You haven't finished all the puzzles yet!" });
+        } else {
+            if (!req.body.email) {
+                res.status(200).send({"message": "Email cannot be empty." });
+                return;
             }
-        });
-    }
+            user.githubEmail = req.body.email;
+            user.save(function(err){
+                if (err) {
+                    respondWithError(err, res);
+                } else {
+                    res.status(200).send({ "message": "Congrats, you finished the puzzle!\nDon't forget to register at my.hackmit.org.\n\n(email recorded as <" + user.githubEmail + ">)" });
+                }
+            });
+        }
+    });
 }
 
 //////////////////////////////////////////
@@ -95,7 +101,7 @@ UserController.getUserInfo = function(req, res) {
                         if (err){
                             res.status(500).send(err);
                         } else {
-                            res.status(200).render("user", { user: user, 
+                            res.status(200).render("user", { user: user,
                                                              puzzleParts: puzzleParts,
                                                              logs: logs });
                         }

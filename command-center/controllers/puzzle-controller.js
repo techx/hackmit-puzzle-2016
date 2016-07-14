@@ -5,6 +5,14 @@ var respondWithError = require('../utils/helpers').respondWithError;
 var SLACK_WEBHOOK = require('../config').slackWebhook;
 var PUBLIC_HOST_URL = require('../config').publicHostUrl;
 
+var convertToReadableFormat = function(timeout) {
+    if (timeout == 0) return 0;
+    seconds = parseInt(timeout % 60);
+    minutes = parseInt(timeout / 60);
+    time = minutes == 0 ? String(seconds) + " seconds" : String(minutes) + " minutes and " + String(seconds) + " seconds";
+    return time;
+}
+
 var postCompletionToSlack = function(username, callback){
     var options = {
       method: 'post',
@@ -26,13 +34,13 @@ PuzzleController.createNew = function(req, res){
         if (err){
             respondWithError(err, res);
         } else if (count != 0){
-            res.status(200).send({});
+            res.status(200).send({message: "You've already started the puzzle!"});
         } else {
             mongoose.model('PuzzlePart').createPart(req.user._id, req.user.githubUsername, 0, function(err, puzzlePart){
                 if (err){
                     respondWithError(err, res);
                 } else {
-                    res.status(201).send({});
+                    res.status(201).send({message: "Ok."});
                 }
             });
         }
@@ -40,22 +48,22 @@ PuzzleController.createNew = function(req, res){
 }
 
 PuzzleController.makeGuess = function(req, res){
-    mongoose.model('PuzzlePart').findOne({ user: req.user._id, number: req.query.puzzleNumber }
+    mongoose.model('PuzzlePart').findOne({ user: req.user._id, number: req.body.puzzleNumber }
         , function(err, puzzlePart){
             if (err){
                 respondWithError(err, res);
             } else if (!puzzlePart) {
-                res.status(404).send({ "error": "Could not find this puzzle part." });
+                res.status(200).send({ "message": "Could not find this puzzle part." });
             } else {
                 puzzlePart.getTimeout(function(err, timeout){
                     if (err){
                         respondWithError(err, res);
                     } else if (timeout != 0) {
-                        res.status(400).send({ "error": "Please wait "+ timeout + "before guessing again." })
+                        res.status(200).send({ "message": "You're doing that too fast. This incident will be reported. Please wait "+ convertToReadableFormat(timeout) + " before guessing again." })
                     } else if (puzzlePart.completionTimestamp) {
-                        res.status(400).send({ "error": "You already finished this part of the puzzle." });
+                        res.status(200).send({ "message": "You already finished this part of the puzzle." });
                     } else {
-                        puzzlePart.makeGuess(req.user.githubUsername, req.query.guess, function(err, correct, slack){
+                        puzzlePart.makeGuess(req.user.githubUsername, req.body.guess, function(err, correct, slack){
                             if (err){
                                 respondWithError(err, res);
                             // } else if (slack == "slack") {
@@ -69,7 +77,7 @@ PuzzleController.makeGuess = function(req, res){
                             } else {
                                 res.status(200).send({ "correct": correct });
                             }
-                        });    
+                        });
                     }
                 });
             }

@@ -37,12 +37,12 @@ puzzlePartSchema.method('getTimeout', function(callback){
     if (this.timeoutLevel == 0) {
         callback(null, 0);
     } else {
-        var timeLeft = 
+        var timeLeft =
             BACKOFF_INTERVALS[this.timeoutLevel] - (Date.now() - this.lastTimeoutTimestamp)/1000;
         if (timeLeft < 0) {
             //reset the timeout after they wait 2x the timeout without causing another one
-            var shouldResetTimeout = 
-                (Date.now() - this.lastTimeoutTimestamp) > 2000 * BACKOFF_INTERVALS[this.timeoutLevel]; 
+            var shouldResetTimeout =
+                (Date.now() - this.lastTimeoutTimestamp) > 2000 * BACKOFF_INTERVALS[this.timeoutLevel];
             if (shouldResetTimeout) {
                 this.resetTimeout(function(err){
                     callback(err, 0);
@@ -75,10 +75,10 @@ puzzlePartSchema.method('makeGuess', function(username, guess, callback){
     var isCorrect = Puzzles[this.number].verifierFunction(guess, username);
     // log guesses
     Submission
-        .create({ user: username, 
-                  puzzleNumber: that.number, 
-                  guess: guess, 
-                  isCorrect: isCorrect, 
+        .create({ user: username,
+                  puzzleNumber: that.number,
+                  guess: guess,
+                  isCorrect: isCorrect,
                   timestamp: Date.now() }
         , function(err){
             if (err) {
@@ -122,12 +122,16 @@ puzzlePartSchema.method('makeGuess', function(username, guess, callback){
                 that.lastGuessTimestamp = Date.now();
                 that.lastGuess = guess;
                 if (that.guessesBeforeBackoff == 0) {
-                    that.invokeTimeout(callback);
+                    that.invokeTimeout(function(err) {
+                        callback(err, false);
+                    });
                 } else {
-                    that.save(callback(err, false));
+                    that.save(function(err) {
+                        callback(err, false);
+                    });
                 }
             }
-        });    
+        });
 });
 
 module.exports = mongoose.model('PuzzlePart', puzzlePartSchema);

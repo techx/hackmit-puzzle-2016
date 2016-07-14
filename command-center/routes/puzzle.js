@@ -11,10 +11,14 @@ var isAuthenticated = function(req, res, next){
     }
 }
 
-router.post('/', isAuthenticated, puzzleController.createNew);
+router.post('/start', isAuthenticated, puzzleController.createNew);
 
 router.post('/guess', isAuthenticated, puzzleController.makeGuess);
 
-router.post('/user', isAuthenticated, userController.updateEmail);
+router.post('/finish', isAuthenticated, userController.finish);
+
+router.get('/list', isAuthenticated, userController.listPuzzles);
+
+// router.post('/list', isAuthenticated, userController.list);
 
 module.exports = router;

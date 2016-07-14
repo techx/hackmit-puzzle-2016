@@ -14,6 +14,137 @@ function randomChoice(items) {
 	return items[getRandomInt(0, items.length-1)];
 }
 
+TerminalShell.commands['start'] = function(terminal) {
+	terminal.setWorking(true);
+	$.ajax({
+		type: 'POST',
+		url: '/puzzle/start',
+		dataType: 'json',
+		success: function(data) {
+			if (data.message) {
+				terminal.print(data.message);
+			} else {
+				terminal.print("Something went wrong... :|");
+			}
+			terminal.setWorking(false);
+		},
+		error: function(e) {
+			terminal.print("Something went wrong... :|");
+			terminal.setWorking(false);
+		}
+	});
+};
+
+TerminalShell.commands['list'] = function(terminal) {
+	terminal.setWorking(true);
+	$.ajax({
+		type: 'GET',
+		url: '/puzzle/list',
+		dataType: 'json',
+		success: function(data) {
+			if (data.puzzleParts) {
+				terminal.print('num | done | url');
+				var p = data.puzzleParts;
+				for (var i = 0; i < p.length; i++) {
+					var msg = ' ';
+					if (i < 10) {
+						msg += ' ' + i.toString();
+					} else {
+						msg += i;
+					}
+					msg += ' | ';
+					if (typeof p[i].completionTimestamp !== 'undefined') {
+						msg += ' yes | ';
+					} else {
+						msg += '  no | ';
+					}
+					terminal.print($('<p>').html(msg + "<a href=\"" + p[i].url + "\">" + p[i].url + "</a>"));
+				}
+			} else {
+				terminal.print("Something went wrong... :|");
+			}
+			terminal.setWorking(false);
+		},
+		error: function(e) {
+			terminal.print("Something went wrong... :|");
+			terminal.setWorking(false);
+		}
+	});
+};
+
+TerminalShell.commands['submit'] = function(terminal) {
+	var argArray = Array.prototype.slice.call(arguments);
+	argArray.shift(); // terminal
+	var number = argArray.shift();
+	if (typeof number === 'undefined') {
+		terminal.print('puzzle number is required!');
+		return;
+	}
+	if (!(/\d+/.test(number))) {
+		terminal.print('puzzle number must be a number!');
+		return;
+	}
+	var guess = argArray.join(' ');
+	if (guess.length === 0) {
+		terminal.print('guess is required!');
+		return;
+	}
+	terminal.setWorking(true);
+	$.ajax({
+		type: 'POST',
+		url: '/puzzle/guess',
+		data: {
+			puzzleNumber: number,
+			guess: guess
+		},
+		success: function(data) {
+			if (typeof data.message !== 'undefined') {
+				terminal.print(data.message);
+			} else if (typeof data.correct !== 'undefined') {
+				if (data.correct === true) {
+					terminal.print('Correct!');
+				} else {
+					terminal.print(randomChoice([
+						'Nope.',
+						'Try again.',
+					]));
+				}
+			} else {
+				terminal.print("Something went wrong... :|");
+			}
+			terminal.setWorking(false);
+		},
+		error: function(e) {
+			terminal.print("Something went wrong... :|");
+			terminal.setWorking(false);
+		}
+	});
+};
+
+TerminalShell.commands['finish'] = function(terminal, email) {
+	terminal.setWorking(true);
+	$.ajax({
+		type: 'POST',
+		url: '/puzzle/finish',
+		data: {
+			email: email
+		},
+		success: function(data) {
+			if (typeof data.message !== 'undefined') {
+				terminal.print(data.message);
+			} else {
+				console.log(data);
+				terminal.print("Something went wrong... :|");
+			}
+			terminal.setWorking(false);
+		},
+		error: function(e) {
+			terminal.print("Something went wrong... :|");
+			terminal.setWorking(false);
+		}
+	});
+};
+
 var xkcd = {
 	latest: null,
 	last: null,
@@ -520,7 +651,14 @@ TerminalShell.commands['sleep'] = function(terminal, duration) {
 
 // No peeking!
 TerminalShell.commands['help'] = TerminalShell.commands['halp'] = function(terminal) {
-	terminal.print('That would be cheating!');
+	$.each([
+		'  start                       - start the puzzle',
+		'  list                        - list puzzles',
+		'  submit <number> <guess>     - submit a solution for a puzzle',
+		'  finish <your email address> - finish the puzzle'
+	], function(num, line) {
+		terminal.print(line);
+	});
 };
 
 TerminalShell.fallback = function(terminal, cmd) {
