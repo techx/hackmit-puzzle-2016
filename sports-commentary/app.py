@@ -136,7 +136,7 @@ def secret_code(username):
 @app.route('/<username>/xorshift128plus', methods=['GET'])
 def get_next_xorshift_api(username):
     user = User.get_or_create_from_username(username)
-    user.state, nums = get_next_n_xorshift(user.state, 10)
+    user.state, nums = get_next_n_xorshift(user.state, 200)
     db.session.commit()
     return jsonify(nums)
 
@@ -160,8 +160,9 @@ def user_home(username):
         if check_solution(username):
             return 'Congrats! You guessed the perfect bracket. Your code is ' + secret_code(username)
         else:
+            print "wtf"
             got_it_wrong = True
-
+    print got_it_wrong
     return render_template('betting.html', got_it_wrong=got_it_wrong)
 
 
