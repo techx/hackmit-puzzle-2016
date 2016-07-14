@@ -1,7 +1,13 @@
+@font-face {
+  font-family: 'xkcd';
+  src: url('/assets/xkcd.otf') format('opentype');
+}
+
 body {
 	padding: 50px;
-	font: 16pt "Comic Sans MS", "LDFComicSans"; src: url('/../assets/LDFComicSans.ttf');
-	background-color: #ffe552;
+	font-size: 16pt;
+    font-family: "xkcd", sans-serif;
+	background-color: white;
 }
 
 a {
@@ -12,20 +18,13 @@ a:hover {
 	color: magenta;
 }
 
-.doge, .sad-doge {
-    width:200px;
-    border-radius: 10px;
+.small-img {
+    width: 150px;
 }
 
-.dogegif {
-	width: 75px;
-	height: auto;
-	float: right;
-	border-radius: 10px;
-}
-
-.doge.nav {
-	width: 300px;
+.comic.nav {
+	width: 250px;
+    border: 2px solid black;
 }
 
 .done {
@@ -36,16 +35,11 @@ a:hover {
 	padding:50px;
 	margin: 0 auto;
 	text-align: center;
-	color: magenta;
+	color: black;
 	margin-top: 40px;
 	width: 400px;
 	height: 500px;
-	border: 1px solid white;
-	background-color:rgba(255, 255, 255, 0.2);
-}
-
-.github-login {
-	color: #07D900;
+	border: 2px solid black;
 }
 
 .logout {
@@ -62,10 +56,17 @@ h3 {
 }
 
 button {
-	font-family: "Comic Sans MS";
+	font-family: "xkcd", sans-serif;
 	font-size: 12pt;
 	background-color: white;
-	border-radius: 5px;
+    color: black;
+    border-radius: 2px;
+    border: 2px solid black;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ccc;
 }
 
 .lock {
@@ -76,9 +77,7 @@ button {
 	float: left;
 	text-align: center;
 	width: 48%;
-	background-color: #FFF5BF;
-	border-radius: 10px;
-
+    border: 2px solid black;
 }
 
 .puzzle-number {
@@ -107,21 +106,23 @@ button {
 	text-align: center;
 	width: 48%;
 	min-height: 500px;
-	background-color: #FFF5BF;
-	border-radius: 10px;
+	border: 2px solid black;
 	padding: 20px 0px;
 }
 
 .puzzlepart {
 	padding: 10px 5px;
 	margin: 20px 20px;
-	background-color: #FFFCE8;
-	border-radius: 10px;
+	border: 2px solid black;
 	min-height: 80px;
 }
 
+.tiny-img {
+    width: 100px;
+}
+
 input {
-	font-family: "Comic Sans MS";
+	font-family: "xkcd", sans-serif;
 	font-size: 12pt;
 	border-radius: 5px;
 	float: right;

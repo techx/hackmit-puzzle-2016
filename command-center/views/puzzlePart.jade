@@ -3,11 +3,11 @@ mixin puzzlePart(p)
         a(href=p.url)
             .puzzle-number Puzzle #{p.number+1}
         if p.timeout != 0 && !p.completionTimestamp
-            img(src="/assets/sad_doge.gif").sad-doge
+            img(src="/assets/bun-point.png").tiny-img
             p Please try again in #{p.timeout}.
         else
             if (p.completionTimestamp)
-                img(src="/assets/gifs/shades.gif").dogegif 
+                img(src="/assets/blackhat-wow-2.png").tiny-img
                 .correct  ✓
             else
                 form
@@ -17,5 +17,3 @@ mixin puzzlePart(p)
                     br
                 button#submit-answer Submit Answer
                 div#feedback
-
-
