@@ -428,6 +428,16 @@ TerminalShell.commands['man'] = function(terminal, what) {
 	terminal.print('RTFM!');
 };
 
+TerminalShell.commands['find'] = function(terminal, what) {
+	terminal.print('I can\'t find what you\'re looking for.');
+}
+
+TerminalShell.commands['dogemit'] = function(terminal, what) {
+	terminal
+	    .print($('<p>')
+		.html('<a href="https://www.youtube.com/watch?v=sd4bqmP_460">much amuse</a>'));
+}
+
 // No peeking!
 TerminalShell.commands['help'] = TerminalShell.commands['halp'] = function(terminal) {
 	$.each([
@@ -442,12 +452,21 @@ TerminalShell.commands['help'] = TerminalShell.commands['halp'] = function(termi
 
 TerminalShell.fallback = function(terminal, cmd) {
 	oneliners = {
+		'catmit': 'That is so 2014.',
+		'cry': 'Boo hoo.',
+		'date': 'September 17, 2016',
 		'hack': 'No hacking allowed!',
-		'whoami': 'You are Richard Stallman.',
+		'haxkcd': 'You didn\'t think it would be that easy, did you?',
+		'moo': 'moo',
+		'pls': 'no u',
+		'pwd': '/you/are/trapped/here',
 		'ssh': 'It\'s not secure enough!',
+		'whoami': 'You are Richard Stallman.',
+		'why': 'Why not?'
 	};
 	oneliners['emacs'] = 'You should really use vim.';
 	oneliners['vi'] = oneliners['vim'] = 'You should really use emacs.';
+	oneliners['hi'] = oneliners['hello'] = oneliners['hey'] = 'sup.';
 
 	cmd = cmd.toLowerCase();
 	if (!oneLiner(terminal, cmd, oneliners)) {
@@ -458,6 +477,28 @@ TerminalShell.fallback = function(terminal, cmd) {
 				'There are cheat codes.',
 				'No.',
  			]));
+		} else if (cmd == "doge") {
+			var modifier = randomChoice([
+				'amaze',
+				'many',
+				'much',
+				'so',
+				'such',
+				'very'
+				]);
+			var subject = randomChoice([
+				'amuse',
+				'cats',
+				'confuse',
+				'cry',
+				'fun',
+				'hacks',
+				'hackmit',
+				'laugh',
+				'puzzle',
+				'xkcd'
+				]);
+			terminal.print(modifier + " " + subject);
 		} else {
 			return false;
 		}
