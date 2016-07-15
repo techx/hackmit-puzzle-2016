@@ -20,7 +20,7 @@ var postCompletionToSlack = function(username, callback){
                      "/admin/users/" + username + "|" + username + "> has solved the puzzle!",
              "channel": "#puzzle-2016",
              "username": "Puzzle Monitor",
-             "icon_emoji": ":robot_face:" },
+             "icon_emoji": ":haxkcd:" },
       json: true,
       url: SLACK_WEBHOOK
     }
@@ -38,7 +38,7 @@ var postGuessToSlack = function(username, guess, correct, number) {
           guess + "\" " + correctly + " for puzzle " + number,
              "channel": "#puzzle-spam",
              "username": "Puzzle Monitor",
-             "icon_emoji": ":robot_face:" },
+             "icon_emoji": ":haxkcd:" },
       json: true,
       url: SLACK_WEBHOOK
     }
