@@ -16,7 +16,7 @@ var convertToReadableFormat = function(timeout) {
 var postCompletionToSlack = function(username, callback){
     var options = {
       method: 'post',
-      body: {"text": "<" + PUBLIC_HOST_URL +
+      body: {"text": ":tada: <" + PUBLIC_HOST_URL +
                      "/admin/users/" + username + "|" + username + "> has solved the puzzle!",
              "channel": "#puzzle-2016",
              "username": "Puzzle Monitor",
@@ -30,12 +30,12 @@ var postCompletionToSlack = function(username, callback){
 }
 
 var postGuessToSlack = function(username, guess, correct, number) {
-    var correctly = correct ? "(correctly)" : "(incorrectly)";
+    var correctly = correct ? ":white_check_mark:" : ":x:";
     var options = {
       method: 'post',
-      body: {"text": "<" + PUBLIC_HOST_URL +
+      body: {"text": correctly + " <" + PUBLIC_HOST_URL +
           "/admin/users/" + username + "|" + username + "> guessed \"" +
-          guess + "\" " + correctly + " for puzzle " + number,
+          guess + "\" for puzzle " + number,
              "channel": "#puzzle-spam",
              "username": "Puzzle Monitor",
              "icon_emoji": ":haxkcd:" },
