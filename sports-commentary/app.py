@@ -152,7 +152,6 @@ def user_home(username):
             return 'Congrats! You guessed the perfect bracket. Your code is ' + secret_code(username)
         else:
             got_it_wrong = True
-    print got_it_wrong
     return render_template('betting.html', got_it_wrong=got_it_wrong)
 
 
