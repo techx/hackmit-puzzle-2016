@@ -128,7 +128,7 @@ def secret_code(username):
     base = 'thisisacoolsecret3456345keythatnoonewillguess3409582043svnsfduvla07348tsdfgsdh544927859||||'
     h = hash_()
     h.update(base + username.lower())
-    return h.hexdigest()
+    return h.hexdigest()[0:10]
 
 
 @app.route('/<username>/xorshift128plus', methods=['GET'])
