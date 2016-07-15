@@ -22,3 +22,4 @@ trim_trailing_whitespace = false
 
 [*.jade]
 trim_trailing_whitespace = false
+indent_size = 2

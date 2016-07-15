@@ -15,3 +15,12 @@
 
 ### Usage
 - Go to /admin/users to see a view of users and time completed
+
+### Environment Variables
+
+```
+NODE_ENV='production'
+GITHUB_CLIENT_ID='xxx'
+GITHUB_CLIENT_SECRET='xxx'
+PUBLIC_HOST_URL='xxx'
+```

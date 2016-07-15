@@ -1,33 +1,43 @@
-extends layout
-block head
-block content
-    .user-column.column
-        h1 What's up #{currentUser}
-        img(src="/assets/dino.jpg").comic.nav
-        div.logout
-            button#logout Leave
-    .content-column.column
-        div#error
-        if puzzleParts.length == 0
-            script
-                include ./js/create-puzzle.js
-            form
-                button#start-button Start Puzzle!
-        else    
-            if done
-                div.done
-                    script
-                        include ./js/update-email.js
-                    h2.congrats YAY YOU FINISHED THE PUZZLE! very solve much impress
-                    p (Make sure you still register at https://my.hackmit.org!)
-                    form
-                        input(type="email", value=userEmail, name="email")#email
-                        br
-                    button#update-email Submit your email to let doge know who helped him!
-                    div#feedback
-            else
-                script
-                    include ./js/make-guess.js
-            for p in puzzleParts
-                mixin puzzlePart(p)
-        include puzzlePart
+doctype 1.1
+html(xmlns='http://www.w3.org/1999/xhtml')
+  head
+    title #{currentUser}@haxkcd
+    script(type='text/javascript').
+      window.currentUser = "#{currentUser}";
+    link(rel='icon', href='/static/favicon.ico', type='image/x-icon')
+    link(rel='shortcut icon', href='/static/favicon.ico', type='image/x-icon')
+    link(rel='stylesheet', type='text/css', href='/stylesheets/cli.css', media='screen', title='Default')
+    script(type='text/javascript', src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js')
+    script(type='text/javascript', src='/javascript/jquery.hotkeys-0.7.9.js')
+    script(type='text/javascript', src='/javascript/jquery.browser.js')
+    script(type='text/javascript', src='/javascript/jquery.konami.js')
+    script(type='text/javascript', src='/javascript/cli.js')
+    script(type='text/javascript', src='/javascript/haxkcd.js')
+  body
+    #pagealert(title='Press any key for next page of text')  --More-- 
+    #indicators
+      span#alt-indicator Alt-
+      span#ctrl-indicator Ctrl-
+      span#scroll-indicator SCR LOCK
+    #screen
+      #display
+        #welcome
+          h1 haxkcd
+          h2 A puzzle for hackers, snackers, and slackers.
+        noscript
+          p Sorry, the CLI requires JavaScript to work. Please turn on JavaScript.
+      #bottomline
+        span#inputline
+          span#prompt
+          span#lcommand
+          span#cursor  
+          span#rcommand
+        span#spinner
+    #credit
+      | Inspired by 
+      a(href='http://uni.xkcd.com/') xkcd
+      | . XKCD CLI by 
+      a(href='http://chromakode.com') Chromakode
+      | . Original CLI2 by 
+      a(href='http://thrind.xamai.ca') Rod McFarland
+      | ..
