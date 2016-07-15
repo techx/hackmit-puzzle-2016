@@ -65,6 +65,19 @@ function check(answer) {
 }
 
 
+function checkGeo() {
+	var possibleLocations = [("42.19702","-71.59781"), ("79.71341","-85.14546"), ("31.86541","29.46147"), ("21.37220","157.17055"), ("48.98947","2.53996"), ("-33.36566","-70.03743")];
+	return function(guess, username) {
+		for (var i = 0; i < possibleLocations.length; i++) {
+			if(guess.indexOf(possibleLocations[i][0]) != -1 && guess.indexOf(possibleLocations[i][1]) != -1) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+}
+
 function checkSports() {
   var base = 'thisisacoolsecret3456345keythatnoonewillguess3409582043svnsfduvla07348tsdfgsdh544927859||||';
   return function(guess, username) {
@@ -79,8 +92,8 @@ config.puzzles = [
     Puzzle(function(username){ return "http://hackmit.org/";}, check('answer one')),
     /* puzzle 2 */
     Puzzle(function(username){ return "http://hackmit.org/";}, check('answer two')),
-    /* puzzle 3 */
-    Puzzle(function(username){ return "http://hackmit.org/";}, check('answer three')),
+    /* puzzle 3 - Geohashing*/
+    Puzzle(function(username){ return "http://hackmit.org/";}, checkGeo()),
     /* puzzle 4 */
     Puzzle(function(username){ return "http://hackmit.org/";}, check('answer four')),
     /* puzzle 5 */
