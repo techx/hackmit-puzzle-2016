@@ -18,15 +18,31 @@ var postCompletionToSlack = function(username, callback){
       method: 'post',
       body: {"text": "<" + PUBLIC_HOST_URL +
                      "/admin/users/" + username + "|" + username + "> has solved the puzzle!",
-             "channel": "#puzzle",
+             "channel": "#puzzle-2016",
              "username": "Puzzle Monitor",
-             "icon_emoji": ":dog:" },
+             "icon_emoji": ":robot_face:" },
       json: true,
       url: SLACK_WEBHOOK
     }
     request(options, function(err, httpResponse, body){
         callback(err, true);
     });
+}
+
+var postGuessToSlack = function(username, guess, correct, number) {
+    var correctly = correct ? "(correctly)" : "(incorrectly)";
+    var options = {
+      method: 'post',
+      body: {"text": "<" + PUBLIC_HOST_URL +
+          "/admin/users/" + username + "|" + username + "> guessed \"" +
+          guess + "\" " + correctly + " for puzzle " + number,
+             "channel": "#puzzle-spam",
+             "username": "Puzzle Monitor",
+             "icon_emoji": ":robot_face:" },
+      json: true,
+      url: SLACK_WEBHOOK
+    }
+    request(options);
 }
 
 PuzzleController.createNew = function(req, res){
@@ -66,16 +82,16 @@ PuzzleController.makeGuess = function(req, res){
                         puzzlePart.makeGuess(req.user.githubUsername, req.body.guess, function(err, correct, slack){
                             if (err){
                                 respondWithError(err, res);
-                            // } else if (slack == "slack") {
-                            //     postCompletionToSlack(req.user.githubUsername, function(err){
-                            //         if (err) {
-                            //             console.log("Something went wrong with the Slack Webhook.");
-                            //         } else {
-                            //             res.status(200).send({ "correct": correct });
-                            //         }
-                            //     });
                             } else {
                                 res.status(200).send({ "correct": correct });
+                                postGuessToSlack(req.user.githubUsername, req.body.guess, correct, puzzlePart.number);
+                                if (slack == "slack") {
+                                    postCompletionToSlack(req.user.githubUsername, function(err) {
+                                        if (err) {
+                                            console.log("Something went wrong with the Slack Webhook.");
+                                        }
+                                    });
+                                }
                             }
                         });
                     }

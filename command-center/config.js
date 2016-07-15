@@ -32,7 +32,7 @@ config.admins = [ "katexyu",
                   "zareenc",
                   "Fertogo",
                   "mysticuno",
-                  "cmnord", 
+                  "cmnord",
                   "stefren"
                   ];
 
@@ -80,6 +80,6 @@ config.puzzles = [
     Puzzle(function(username){ return "http://0xd09e5ec.dogemit.party";}, check('amaze algorithm')),
 ];
 
-config.slackWebhook = "https://hooks.slack.com/services/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";
+config.slackWebhook = "https://hooks.slack.com/services/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";
 
 module.exports = config;
