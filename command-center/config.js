@@ -70,7 +70,7 @@ function checkSports() {
   return function(guess, username) {
     var hash = crypto.createHash('sha256');
     hash.update(base + username.toLowerCase());
-    return guess == hash.digest('hex');
+    return guess == hash.digest('hex').substring(0, 10);
   };
 }
 
