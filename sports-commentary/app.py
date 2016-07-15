@@ -13,7 +13,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + DB_PATH
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-NUM_TEAMS = 18  # smallest number required to be greater than 2^52
+NUM_TEAMS = 18  # smallest number factorial greater than 2^52
+PRECISION = 52
 
 
 def get_random_64_bit():
@@ -59,17 +60,17 @@ if not os.path.isfile(DB_PATH):
 
 def get_next_xorshift(state):
     # Thanks https://github.com/douggard/XorShift128Plus/blob/master/xs128p.py
-    s1 = state[0] & 0xFFFFFFFFFFFFFFFF
-    s0 = state[1] & 0xFFFFFFFFFFFFFFFF
-    s1 ^= (s1 << 23) & 0xFFFFFFFFFFFFFFFF
-    s1 ^= (s1 >> 17) & 0xFFFFFFFFFFFFFFFF
-    s1 ^= s0 & 0xFFFFFFFFFFFFFFFF
-    s1 ^= (s0 >> 26) & 0xFFFFFFFFFFFFFFFF
-    state0 = state[1] & 0xFFFFFFFFFFFFFFFF
-    state1 = s1 & 0xFFFFFFFFFFFFFFFF
-    generated = (state0 + state1) & 0xFFFFFFFFFFFFFFFF
+    s1 = state[0] & ((1 << 64) - 1)
+    s0 = state[1] & ((1 << 64) - 1)
+    s1 ^= (s1 << 23) & ((1 << 64) - 1)
+    s1 ^= (s1 >> 17) & ((1 << 64) - 1)
+    s1 ^= s0 & ((1 << 64) - 1)
+    s1 ^= (s0 >> 26) & ((1 << 64) - 1)
+    state0 = state[1] & ((1 << 64) - 1)
+    state1 = s1 & ((1 << 64) - 1)
+    generated = (state0 + state1) & ((1 << 64) - 1)
 
-    return (state0, state1), generated & 0xFFFFFFFFFFFFF  # (only 52 bits here)
+    return (state0, state1), generated & ((1 << PRECISION) - 1)  # (only PRECISION bits here)
 
 
 def permutation_from_number(k):

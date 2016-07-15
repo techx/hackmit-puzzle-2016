@@ -86,7 +86,9 @@ function createTable(element, tableData) {
   element.appendChild(table);
 }
 
-function getRand(nums) {
+function getRandonNumber(nums) {
+  // return 4; // chosen by fair dice roll.
+  //           // guaranteed to be random.
   return nums.shift() / Math.pow(2, 52);
 }
 
@@ -100,8 +102,7 @@ function create_winrate_table(nums) {
     var wins = nums.shift() % 151;
     row.push(wins);
     row.push(games_played - wins);
-    var batting =
-    row.push(Math.round(1000*getRand(nums)));
+    row.push(Math.round(1000*getRandonNumber(nums)));
     row.push(nums.shift() % 101);
     row.push(nums.shift() % 11);
     row.push(nums.shift() % 91);
@@ -126,8 +127,8 @@ $(document).ready(function() {
     success: function(nums) {
       add_winners(nums.shift());
       create_winrate_table(nums);
-      var rand1 = getRand(nums);
-      var rand2 = getRand(nums);
+      var rand1 = getRandonNumber(nums);
+      var rand2 = getRandonNumber(nums);
       var f = function(num) { return -Math.exp(-num*rand1) + 1 + Math.sin(num*1/Math.sqrt(rand2))*rand2; };
       draw_plot({
         xmin: 0,
@@ -139,8 +140,8 @@ $(document).ready(function() {
       }, [{
         f: f
       }]);
-      var rand3 = getRand(nums);
-      var rand4 = getRand(nums);
+      var rand3 = getRandonNumber(nums);
+      var rand4 = getRandonNumber(nums);
       var coolf = (rand3 < 0.5) ? Math.sin : Math.cos;
       var f2 = function(num) { return coolf(num*rand4*3.1415)*num + rand3; };
       draw_plot({
@@ -154,8 +155,8 @@ $(document).ready(function() {
         f: f2,
         stroke: 'red'
       }]);
-      var rand5 = getRand(nums);
-      var rand6 = getRand(nums);
+      var rand5 = getRandonNumber(nums);
+      var rand6 = getRandonNumber(nums);
       var f3 = function(num) { return Math.pow(num, 1/rand5) + Math.cos(num*10)/10 };
       draw_plot({
         xmin: 0,
