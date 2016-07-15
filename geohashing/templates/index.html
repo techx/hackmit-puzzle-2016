@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="../static/style.css" />
+        <title>Think Fast.</title>
+    </head>
+    <body>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-TablxFgixB4S5PcxoF5gp2DHa7Y86wM&sensor=false&extension=.js"></script> 
+        <div title="Think Fast. It all adds up in the end." id="clock">
+            <img src="../static/xkcdclock.png" width="100%">
+            <div id="pmdot" class="{{pm}}">PM</div>
+            <div id="time">{{ time }}</div>
+            <div id="date">{{ date }}</div>
+        </div>
+        <div id="loc"><img src="../static/pinpoint.png" height="50px"> {{ loc }}</div>
+    </body>
+</html>
