@@ -69,7 +69,7 @@ function checkSports() {
   var base = 'thisisacoolsecret3456345keythatnoonewillguess3409582043svnsfduvla07348tsdfgsdh544927859||||';
   return function(guess, username) {
     var hash = crypto.createHash('sha256');
-    hash.update(base + username);
+    hash.update(base + username.toLowerCase());
     return guess == hash.digest('hex');
   };
 }
