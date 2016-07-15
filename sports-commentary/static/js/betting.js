@@ -182,7 +182,6 @@ $(document).ready(function() {
         var $prediction = $($predictions.get(i));
         result.push(parseInt($prediction.data('value'), 10));
       }
-      console.log(result);
       $("#predictionInput").val(JSON.stringify(result));
     }
   });

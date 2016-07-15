@@ -130,7 +130,7 @@ def secret_code(username):
     else:
         base = os.environ['SPORTSBALL_SECRET']
     h = hash_()
-    h.update(base + username)
+    h.update(base + username.lower())
     return h.hexdigest()
 
 
@@ -140,13 +140,6 @@ def get_next_xorshift_api(username):
     user.state, nums = get_next_n_xorshift(user.state, 200)
     db.session.commit()
     return jsonify(nums)
-
-
-@app.route('/<username>/solution', methods=['GET'])
-def get_user_solution(username):
-    user = User.get_or_create_from_username(username)
-    _, k = get_next_xorshift(user.state)
-    return jsonify(permutation_from_number(k))
 
 
 @app.route('/favicon.ico', methods=['GET', 'POST'])
@@ -161,7 +154,6 @@ def user_home(username):
         if check_solution(username):
             return 'Congrats! You guessed the perfect bracket. Your code is ' + secret_code(username)
         else:
-            print "wtf"
             got_it_wrong = True
     print got_it_wrong
     return render_template('betting.html', got_it_wrong=got_it_wrong)
