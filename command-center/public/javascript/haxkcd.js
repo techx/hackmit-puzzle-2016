@@ -315,6 +315,9 @@ Filesystem = {
 		terminal.print($('<p>').html('<a href="https://github.com/detry322">Jack Serrino</a>'));
 		terminal.print($('<p>').html('<a href="https://github.com/kimberli">Kimberli Zhong</a>'));
 		terminal.print($('<p>').html('<a href="https://github.com/andrewilyas">Andrew Ilyas</a>'));
+		terminal.print($('<p>').html('<a href="https://github.com/cmnord">Claire Nord</a>'));
+		terminal.print($('<p>').html('<a href="https://github.com/turbomaze/">Anthony Liu</a>'));
+		terminal.print($('<p>').html('<a href="https://github.com/stefren">Stef Ren</a>'));
 	}},
 	'welcome.txt': {type:'file', read:function(terminal) {
 		terminal.print($('<h4>').text('Welcome to the haxkcd console.'));
