@@ -4,7 +4,7 @@ import struct
 
 from flask import Flask, jsonify, request, render_template, flash, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
-from hashlib import sha224 as hash_
+from hashlib import sha256 as hash_
 
 DB_PATH = 'sports-commentary.sqlitedb'
 
@@ -13,7 +13,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + DB_PATH
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-NUM_TEAMS = 18  # smallest number required to be greater than 2^52
+NUM_TEAMS = 18  # smallest number factorial greater than 2^52
+PRECISION = 52
 
 
 def get_random_64_bit():
@@ -59,17 +60,17 @@ if not os.path.isfile(DB_PATH):
 
 def get_next_xorshift(state):
     # Thanks https://github.com/douggard/XorShift128Plus/blob/master/xs128p.py
-    s1 = state[0] & 0xFFFFFFFFFFFFFFFF
-    s0 = state[1] & 0xFFFFFFFFFFFFFFFF
-    s1 ^= (s1 << 23) & 0xFFFFFFFFFFFFFFFF
-    s1 ^= (s1 >> 17) & 0xFFFFFFFFFFFFFFFF
-    s1 ^= s0 & 0xFFFFFFFFFFFFFFFF
-    s1 ^= (s0 >> 26) & 0xFFFFFFFFFFFFFFFF
-    state0 = state[1] & 0xFFFFFFFFFFFFFFFF
-    state1 = s1 & 0xFFFFFFFFFFFFFFFF
-    generated = (state0 + state1) & 0xFFFFFFFFFFFFFFFF
+    s1 = state[0] & ((1 << 64) - 1)
+    s0 = state[1] & ((1 << 64) - 1)
+    s1 ^= (s1 << 23) & ((1 << 64) - 1)
+    s1 ^= (s1 >> 17) & ((1 << 64) - 1)
+    s1 ^= s0 & ((1 << 64) - 1)
+    s1 ^= (s0 >> 26) & ((1 << 64) - 1)
+    state0 = state[1] & ((1 << 64) - 1)
+    state1 = s1 & ((1 << 64) - 1)
+    generated = (state0 + state1) & ((1 << 64) - 1)
 
-    return (state0, state1), generated & 0xFFFFFFFFFFFFF  # (only 52 bits here)
+    return (state0, state1), generated & ((1 << PRECISION) - 1)  # (only PRECISION bits here)
 
 
 def permutation_from_number(k):
@@ -124,12 +125,9 @@ def check_solution(username):
 
 
 def secret_code(username):
-    if 'SPORTSBALL_SECRET' not in os.environ:
-        base = 'thisisacoolsecret'
-    else:
-        base = os.environ['SPORTSBALL_SECRET']
+    base = 'thisisacoolsecret3456345keythatnoonewillguess3409582043svnsfduvla07348tsdfgsdh544927859||||'
     h = hash_()
-    h.update(base + username)
+    h.update(base + username.lower())
     return h.hexdigest()
 
 
@@ -139,13 +137,6 @@ def get_next_xorshift_api(username):
     user.state, nums = get_next_n_xorshift(user.state, 200)
     db.session.commit()
     return jsonify(nums)
-
-
-@app.route('/<username>/solution', methods=['GET'])
-def get_user_solution(username):
-    user = User.get_or_create_from_username(username)
-    _, k = get_next_xorshift(user.state)
-    return jsonify(permutation_from_number(k))
 
 
 @app.route('/favicon.ico', methods=['GET', 'POST'])
@@ -160,9 +151,7 @@ def user_home(username):
         if check_solution(username):
             return 'Congrats! You guessed the perfect bracket. Your code is ' + secret_code(username)
         else:
-            print "wtf"
             got_it_wrong = True
-    print got_it_wrong
     return render_template('betting.html', got_it_wrong=got_it_wrong)
 
 
