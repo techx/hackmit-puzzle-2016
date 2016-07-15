@@ -8,7 +8,7 @@ AdminController.renderLogin = function(req, res, next) {
 };
 
 AdminController.login = function(req, res, next) {
-
+    console.log("a")
     console.log("admin login");
     console.log(req.body);
     console.log(typeof(req.body.username));
@@ -22,12 +22,12 @@ AdminController.login = function(req, res, next) {
         var username = req.body.username;
         var password = req.body.password;
     }
-    User.findOne({githubUsername: "Fertogo"}, function(err, user){
+    User.findOne({githubUsername: req.user.githubUsername}, function(err, user){
         if(err) return next(err);
         if(!user) return res.send(404);
 
         //Succeptable to noSQL injection by entering {"$gt": ""} for username and password!
-        //For attack to work an amin user with an int username and pass needs to exist.
+        //For attack to work an admin user with an int username and pass needs to exist.
         Admin.findOne({username: username, password: password}, function(err,admin){
             if (err) return next(err);
             if (!admin) return res.send("ACCOUNT NOT FOUND");
@@ -39,7 +39,6 @@ AdminController.login = function(req, res, next) {
 
 
         });
-    //TODO Check login
 
 
     });

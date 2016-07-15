@@ -12,4 +12,8 @@ router.get('/', function(req, res, next) {
     else res.redirect('/auth');
 });
 
+router.get('/education/math', function(req, res, next){
+    res.redirect("https://www.khanacademy.org/computing/computer-science/cryptography")
+})
+
 module.exports = router;

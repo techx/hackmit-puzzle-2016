@@ -6,3 +6,47 @@ body {
 a {
   color: #00B7FF;
 }
+
+div {
+    /*border:1px solid red;*/
+ }
+
+ #main {
+    /*border: 1px solid blue;*/
+}
+
+#left-sidebar {
+    /*border: 1px solid red;*/
+    background-color: #dbdbdb;
+}
+#right-sidebar {
+    /*border: 1px solid green;*/
+    background-color: #dbdbdb;
+
+}
+
+/*#main,#left-sidebar,#right-sidebar {
+    border: 2px solid grey;
+    padding: 20px;
+ }*/
+
+#footer {
+    border-top: 1px solid grey;
+    padding-top: 15px;
+    margin-top: 20px;
+ }
+
+
+img {
+    max-width: 200px;
+    max-height: 100px;
+ }
+
+.carousel img{
+    height: 300px!important;
+    max-height: 300px;
+}
+
+.centered {
+    text-align: center;
+ }

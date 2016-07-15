@@ -16,10 +16,10 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new GitHubStrategy({
         clientID: process.env.BOBBY_GITHUB_ID,
         clientSecret: process.env.BOBBY_GITHUB_SECRET,
-        callbackURL: "http://localhost:3000" + "/auth/callback" }, function(accessToken, refreshToken, profile, done) {
+        callbackURL: "http://66b2deab.ngrok.io" + "/auth/callback" }, function(accessToken, refreshToken, profile, done) {
             mongoose.model('User')
                 .findOrCreate({ githubUsername: profile.username,
-                                githubEmail: profile.emails[0].value,
+                                githubEmail: profile.emails ? profile.emails[0].value : "no@email.com",
                                },
                 function (err, user) {
                     return done(err, user);

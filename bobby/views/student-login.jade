@@ -1,16 +1,17 @@
 extends layout
 
 block content
-  h1 Xavier Kalos Child Development Elementary
 
-
+  h1 Welcome Student
   h2 You may log in here
 
   form(method="POST", action="login")
-    label Username
+    label Name
     input(name="username",type="text")
+    br
     label Password
     input(name="password",type="password")
+    br
     button(name="submit", type="submit",value="submit")
         | Submit
 
