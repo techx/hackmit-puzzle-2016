@@ -1,12 +1,34 @@
 extends layout
 
 block content
-  h1 Xavier Kalos Child Development Elementary
-  h2 New student?
-    a(href="/student/register") Register here!
-    a(href="/student/login") Login here
-  h2 School admin?
-    a(href="/admin/login") Login here
+
+    .row
+      .col-md-12
+        h3
+          | About XKCDE
+        p
+          | Founded in 2009, the Xavier Kalos Child Development Elementary
+          strong consectetur adipiscing elit
+          | . Aliquam eget sapien sapien. Curabitur in metus urna. In hac habitasse platea dictumst. Phasellus eu sem sapien, sed vestibulum velit. Nam purus nibh, lacinia non faucibus et, pharetra in dolor. Sed iaculis posuere diam ut cursus.
+          em
+            | Morbi commodo sodales nisi id sodales. Proin consectetur, nisi id commodo imperdiet, metus nunc consequat lectus, id bibendum diam velit et dui.
+          |  Proin massa magna, vulputate nec bibendum nec, posuere nec lacus.
+          small
+            | Aliquam mi erat, aliquam vel luctus eu, pharetra quis elit. Nulla euismod ultrices massa, et feugiat ipsum consequat eu.
+    .row
+      .col-md-12
+        h4 School supplies
+       p.centered
+         | See the list for the next academic year.
+         a(href="/suppies") School Supplies
+         img(src="/images/pencil.png")
+
+        blockquote
+          p
+            | Always make sure to sanitize your database inputs.
+          small
+            | Matt Johnson
+            cite Alumni '09
 
 
-  p Welcome to #{title}
+

@@ -1,17 +1,35 @@
-extends layout
 
-block content
-  h1 Xavier Kalos Child Development Elementary
+link(rel='stylesheet', href='/stylesheets/adminStyle.css')
 
 
-  h2 You may log in here
-  h3 ADMINs ONLY!
 
-  form(method="POST", action="login")
-    label Username
-    input(name="username",type="text")
-    label Password
-    input(name="password",type="password")
-    button(name="submit", type="submit",value="submit")
-        | Submit
+h2 Xavier Kalos Child Development Elementary
+
+
+h3 ADMINs ONLY!
+
+pre#logo
+  p ===================================================================
+  p .
+  p ooooooo  ooooo oooo    oooo   .oooooo.   oooooooooo.   oooooooooooo
+  p  `8888    d8'  `888   .8P'   d8P'  `Y8b  `888'   `Y8b  `888'     `8
+  p    Y888..8P     888  d8'    888           888      888  888
+  p     `8888'      88888[      888           888      888  888oooo8
+  p    .8PY888.     888`88b.    888           888      888  888    "
+  p   d8'  `888b    888  `88b.  `88b    ooo   888     d88'  888       o
+  p o888o  o88888o o888o  o888o  `Y8bood8P'  o888bood8P'   o888ooooood8
+  p .
+  p ====================================================================
+
+
+p
+  | This system is for authorized admins of XKCDE. By using this system you forefeit all rights to privacy as all actions will be monitored and logged. Unauthorized access is extremely prohibited.
+
+form(method="POST", action="login")
+  label Username
+  input(name="username",type="text")
+  label Password
+  input(name="password",type="password")
+  button(name="submit", type="submit",value="submit")
+      | Submit
 

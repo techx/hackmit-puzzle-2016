@@ -3,5 +3,167 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/bootstrap-theme.min.css')
+    script(src='/javascripts/jquery.min.js')
+    script(src='/javascripts/bootstrap.min.js')
+
   body
-    block content
+
+    .container-fluid
+      .row
+        .col-md-1
+        .col-md-10
+          .row
+            .col-md-12
+              .row
+                .col-md-3
+                  img(src='/images/grad.png')
+                .col-md-9
+                  h3
+                    | Xavier Kalos Child Development Elementary
+              ul.nav.nav-pills
+                li
+                  a(href='#') School Web Site
+                li
+                  a(href='cal') Calendar
+                li
+                  a(href='alumni') Alumni
+                li
+                  a(href='parents') Parents
+                li
+                  a(href='contact') Contact
+
+                li.dropdown.pull-right
+                  a.dropdown-toggle(href='#', data-toggle='dropdown')
+                    | Login/Register
+                    strong.caret
+                  ul.dropdown-menu
+                    li
+                      a(href="/student/login") Student Login
+                    li
+                      a(href="/student/register") Student Registration
+                    li.divider
+                    li.disabled
+                      a(href="/admin/login") Admin Login
+              h4
+                  marquee Congratulations Class of 2016
+
+              .row
+                .col-md-8
+                  #carousel-367332.carousel.slide
+                    ol.carousel-indicators
+                      li.active(data-slide-to='0', data-target='#carousel-367332')
+                      li(data-slide-to='1', data-target='#carousel-367332')
+                      li(data-slide-to='2', data-target='#carousel-367332')
+
+                    .carousel-inner
+                      .item.active
+                        img(alt='Carousel Bootstrap First', src='/images/c1.jpg')
+                      .item
+                        img(alt='Carousel Bootstrap Second', src='/images/c2.jpg')
+                      .item
+                        img(alt='Carousel Bootstrap Third', src='/images/c3.jpg')
+
+                    a.left.carousel-control(href='#carousel-367332', data-slide='prev')
+                    a.right.carousel-control(href='#carousel-367332', data-slide='next')
+
+                .col-md-4
+                  blockquote
+                    p
+                      | XKCDE gave me the tools and resources to build a solid foundation for success.
+                    small
+                      | Matt Johnson
+                      cite  '09
+        .col-md-1
+      .row
+        .col-md-1
+        .col-md-10
+          .row
+            .col-md-3#left-sidebar
+              .row
+                .col-md-12
+                  img(src='/images/apple.png')
+              .row
+                .col-md-12
+                  h3
+                    | Announcements
+                  ul
+                    li
+                      | School starts September 18th 2016!
+                    li
+                      | Due to technical difficulties we have lost all student data.
+                    li
+                      | We are in the process of rebuilding this site. See parent's seciton.
+                    li
+                      | Please contact help@xkcde.com for assistance
+              .row
+                .col-md-12
+                  h5
+                    | Student Links
+                  ul
+                    li
+                      a(href="/education/games") Educational Games
+                    li
+                      a(href="/education/math") Fun math puzzles
+                    li
+                      a(href="#") Bus Schedule
+                      marquee
+                        img(src='/images/bus.png')
+                    li
+                      a(href="http://my.hackmit.org") HackMIT Applicaiton
+                    li
+                      a(href="https://medium.com/hackmit-stories/such-confuse-hackmit-puzzle-guide-2015-1-4-49dc960f0321#.yj0mpm9c7") Cute Dogs
+                    li
+                      a(href="https://medium.com/@kt_seagull/joining-the-fancycat-club-hackmit-14-puzzle-guide-6f4ebef5b69#.98wdwys1p") Cool cats
+            .col-md-6#main.centered
+              block content
+              .row
+                .col-md-12
+            .col-md-3#right-sidebar
+              .row
+                .col-md-12
+                  h4
+                    | Parent Information
+                  ul
+                    li
+                      | Most services are currently down due to technical difficulties.
+                    li
+                      | Please instruct your child to create a new account
+                    li
+                      | Please maunally remove any symbols or quotes from your child's name as it may interfere with the functionality of the site
+                    li
+                      | Email us at admin@xkcde.com to verify the account
+                    li
+                      | Sorry for the inconvenience
+              .row
+                .col-md-12
+                  img(src='/images/medal.png')
+              .row
+                .col-md-12
+                  h4
+                    | More Links
+                  ul
+                    li
+                      a(href="#") Required Books
+                      img(src="/images/books.png")
+                    li
+                      a(href="/directory") Staff Directory
+                    li
+                      a(href="/lunch") Lunch Menu
+          .row
+            .col-md-12#footer
+              .row
+                .col-md-4
+                  | We are ranked the number 3 elementary in the country!
+                  .row.centered
+                    img(src='/images/three.png')
+                .col-md-4
+                  | Our students consistnetly perform in the 99% percentile on stadardized state tests.
+                  .row.centered
+                      img(src='/images/grade.png')
+                .col-md-4
+                  | We use the best of modern technology to empower our students.
+                  .row.centered
+                      img(src='/images/mouse.png')
+        .col-md-1

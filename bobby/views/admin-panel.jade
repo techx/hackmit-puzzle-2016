@@ -1,18 +1,19 @@
-extends layout
 
-block content
-  h1 Xavier Kalos Child Development Elementary
+link(rel='stylesheet', href='/stylesheets/adminStyle.css')
 
 
-  h2 Admin Panel
-  h3 Students
 
-  if (students && students.length > 0)
-    h4 asdfasdf
-    for student in students
-      p Username: #{student.username}
-      p Password: #{student.password}
-      hr
-  else
-    h4 No students have registered yet!
+h2 Xavier Kalos Child Development Elementary
+
+h2 Admin Panel
+h3 Students
+
+if (students && students.length > 0)
+  h4 asdfasdf
+  for student in students
+    p Username: #{student.username}
+    p Password: #{student.password}
+    hr
+else
+  h4 No students have registered yet!
 

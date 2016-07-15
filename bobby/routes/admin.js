@@ -9,6 +9,7 @@ var authenticate = function(req, res, next) {
 };
 
 router.get('/login', authenticate, adminController.renderLogin);
+
 router.post('/login', authenticate, adminController.login);
 
 module.exports = router;
