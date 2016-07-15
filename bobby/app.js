@@ -12,12 +12,15 @@ var student = require('./routes/student');
 var admin = require('./routes/admin');
 
 
+
+
 var app = express();
 
 var mongoose = require('mongoose');
 db = mongoose.connect(process.env.BOBBY_MONGODB_URI || "mongodb://localhost/bobby");
 var expressSession = require('express-session');
 var passport = require('passport');
+var adminConfig     = require('./config/admin');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -36,7 +36,7 @@ UserController.login = function(req, res, next) {
         if (!user) return res.send(404);
         var found = false;
         user.accounts.forEach(function(account) {
-            if (account.username == req.body.username && account.password == user.genPassword(req.body.password)){
+            if (account.username == req.body.username && account.password == user.genFakeUserPassword(req.body.password)){
                 console.log("sending");
                 found = true
                 return res.render('student',{username:req.body.username});
