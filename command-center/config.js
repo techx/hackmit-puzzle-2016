@@ -43,6 +43,17 @@ function check(answer) {
     };
 }
 
+var crypto = require('crypto');
+
+function checkSports() {
+  var base = 'thisisacoolsecret3456345keythatnoonewillguess3409582043svnsfduvla07348tsdfgsdh544927859||||';
+  return function(guess, username) {
+    var hash = crypto.createHash('sha256');
+    hash.update(base + username);
+    return guess == hash.digest('hex');
+  };
+}
+
 config.puzzles = [
     /* puzzle 1 */
     Puzzle(function(username){ return "http://hackmit.org/";}, check('answer one')),
@@ -54,8 +65,8 @@ config.puzzles = [
     Puzzle(function(username){ return "http://hackmit.org/";}, check('answer four')),
     /* puzzle 5 */
     Puzzle(function(username){ return "http://hackmit.org/";}, check('answer five')),
-    /* puzzle 6 */
-    Puzzle(function(username){ return "http://hackmit.org/";}, check('answer six')),
+    /* puzzle 6 - Sports */
+    Puzzle(function(username){ return "http://sports.haxkcd.com/" + username; }, checkSports()),
 ];
 
 config.slackWebhook = "https://hooks.slack.com/services/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";

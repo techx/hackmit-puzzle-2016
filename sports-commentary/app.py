@@ -4,7 +4,7 @@ import struct
 
 from flask import Flask, jsonify, request, render_template, flash, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
-from hashlib import sha224 as hash_
+from hashlib import sha256 as hash_
 
 DB_PATH = 'sports-commentary.sqlitedb'
 
@@ -125,10 +125,7 @@ def check_solution(username):
 
 
 def secret_code(username):
-    if 'SPORTSBALL_SECRET' not in os.environ:
-        base = 'thisisacoolsecret'
-    else:
-        base = os.environ['SPORTSBALL_SECRET']
+    base = 'thisisacoolsecret3456345keythatnoonewillguess3409582043svnsfduvla07348tsdfgsdh544927859||||'
     h = hash_()
     h.update(base + username.lower())
     return h.hexdigest()
