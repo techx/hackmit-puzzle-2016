@@ -17,7 +17,7 @@ function randomChoice(items) {
 var xkcd = {
 	last: null,
 	cache: {},
-	base: 'http://dynamic.xkcd.com/api-0/jsonp/comic/',
+	base: 'https://dynamic.xkcd.com/api-0/jsonp/comic/',
 
 	get: function(num, success, error) {
 		if (num == null) {
@@ -61,7 +61,7 @@ var xkcdDisplay = function(terminal, path) {
 
 	terminal.setWorking(true);
     xkcd.get(num, function(data) {
-        if (!filename || (filename == pathFilename(data.img))) {
+        if (!filename || (filename == pathFilename(data.img.replace('http://', 'https://')))) {
             $('<img>')
                 .hide()
                 .load(function() {
@@ -76,7 +76,7 @@ var xkcdDisplay = function(terminal, path) {
 
                     terminal.setWorking(false);
                 })
-                .attr({src:data.img, alt:data.title, title:data.alt})
+                .attr({src:data.img.replace('http://', 'https://'), alt:data.title, title:data.alt})
                 .addClass('comic');
         } else {
             fail();
