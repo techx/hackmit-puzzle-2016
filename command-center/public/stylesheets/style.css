@@ -69,6 +69,7 @@ button:hover {
     border: 1.5px solid #071419;
     border-radius: 12px;
     width: 48%;
+    min-width: 500px;
     margin: auto;
 }
 
