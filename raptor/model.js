@@ -61,10 +61,10 @@ module.exports = (function () {
   };
 
   User.prototype.generateHash = function() {
-    return crypto.createHmac('sha256', config.secret)
-              .update('velociraptor:' + this.name.toLowerCase())
-              .digest('hex')
-              .substring(0,10);
+    var hex = crypto.createHash('sha256').update(this.name.toLowerCase() + config.secret).digest('hex');
+    var index = hex.split("").reduce(function(a,b){return a + b.charCodeAt(0)},0);
+    var answer = config.colors[index % config.colors.length];
+    return answer;
   };
 
   return {
