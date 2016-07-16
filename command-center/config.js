@@ -91,8 +91,8 @@ function checkSports() {
 function checkRaptor() {
   var raptorsecret = 'secretsecretdogeeeeedoggggeeee19oweijfsspafposdgghackmit4everraptorantscriptwoowowo';
   return function(guess, username) {
-    var raptorhash = crypto.createHmac('sha256', raptorsecret);
-    raptorhash.update('velociraptor:' + username.toLowerCase());
+    var hash = crypto.createHmac('sha256', raptorsecret);
+    hash.update('velociraptor:' + username.toLowerCase());
     return guess.trim().toLowerCase() === hash.digest('hex').toLowerCase();
   }
 };
