@@ -102,7 +102,7 @@ config.puzzles = [
     /* puzzle 2 - Bobby */
     Puzzle(function(username){ return "https://xkcde.com/";}, checkBobby()),
     /* puzzle 5 - Raptor */
-    Puzzle(function(username){ return "https://raptor.haxkcd.com/";}, checkRaptor()),
+    Puzzle(function(username){ return "https://raptor.haxkcd.com/play/" + username; }, checkRaptor()),
     /* puzzle 6 - Sports */
     Puzzle(function(username){ return "https://sports.haxkcd.com/" + username; }, checkSports()),
 ];
