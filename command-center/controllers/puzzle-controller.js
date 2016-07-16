@@ -4,6 +4,7 @@ var PuzzleController = {}
 var respondWithError = require('../utils/helpers').respondWithError;
 var SLACK_WEBHOOK = require('../config').slackWebhook;
 var PUBLIC_HOST_URL = require('../config').publicHostUrl;
+var PUZZLES = require('../config').puzzles;
 
 var convertToReadableFormat = function(timeout) {
     if (timeout == 0) return 0;
@@ -35,7 +36,7 @@ var postGuessToSlack = function(username, guess, correct, number) {
       method: 'post',
       body: {"text": correctly + " <" + PUBLIC_HOST_URL +
           "/admin/users/" + username + "|" + username + "> guessed \"" +
-          guess + "\" for puzzle " + number,
+          guess + "\" for puzzle " + PUZZLES[number].name,
              "channel": "#puzzle-spam",
              "username": "Puzzle Monitor",
              "icon_emoji": ":haxkcd:" },
