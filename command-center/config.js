@@ -98,13 +98,13 @@ function checkRaptor() {
 
 config.puzzles = [
     /* puzzle 1 - Geohashing */
-    Puzzle(function(username){ return "http://time.haxkcd.com/";}, checkGeo()),
+    Puzzle(function(username){ return "https://time.haxkcd.com/";}, checkGeo()),
     /* puzzle 2 - Bobby */
-    Puzzle(function(username){ return "http://xkcde.com/";}, checkBobby()),
+    Puzzle(function(username){ return "https://xkcde.com/";}, checkBobby()),
     /* puzzle 5 - Raptor */
-    Puzzle(function(username){ return "http://raptor.haxkcd.com/";}, checkRaptor()),
+    Puzzle(function(username){ return "https://raptor.haxkcd.com/";}, checkRaptor()),
     /* puzzle 6 - Sports */
-    Puzzle(function(username){ return "http://sports.haxkcd.com/" + username; }, checkSports()),
+    Puzzle(function(username){ return "https://sports.haxkcd.com/" + username; }, checkSports()),
 ];
 
 config.slackWebhook = "https://hooks.slack.com/services/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";
