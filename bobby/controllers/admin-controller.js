@@ -26,9 +26,13 @@ AdminController.login = function(req, res, next) {
         if(err) return next(err);
         if(!user) return res.send(404);
 
+        if (user.accounts.length > 200) {
+            return res.send("woah. You are making way too many accounts and have been blocked. This is not part of the puzzle. Please email us with an explanation");
+        }
+
         //Succeptable to noSQL injection by entering {"$gt": ""} for username and password!
         //For attack to work an admin user with an int username and pass needs to exist.
-        Admin.findOne({username: username, password: password}, function(err,admin){
+        Admin.findOne({username: username, password: password}).maxTime(1000).exec(function(err,admin){
             if (err) return next(err);
             if (!admin) return res.send("ACCOUNT NOT FOUND");
 
