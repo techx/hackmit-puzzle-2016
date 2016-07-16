@@ -9,13 +9,14 @@ var getOrDie = function(varName) {
     } else {
         return variable;
     }
-}
+};
 
-function Puzzle(urlGenerationFunction, verifierFunction) {
+function Puzzle(name, urlGenerationFunction, verifierFunction) {
     return {
       generateUrl: urlGenerationFunction,
-      verifierFunction: verifierFunction
-    }
+      verifierFunction: verifierFunction,
+      name: name
+    };
 }
 
 config.githubClientId = getOrDie("GITHUB_CLIENT_ID");
@@ -94,18 +95,18 @@ function checkRaptor() {
     var hash = crypto.createHmac('sha256', raptorsecret);
     hash.update('velociraptor:' + username.toLowerCase());
     return guess.trim().toLowerCase() === hash.digest('hex').substring(0,10).toLowerCase();
-  }
-};
+  };
+}
 
 config.puzzles = [
     /* puzzle 1 - Geohashing */
-    Puzzle(function(username){ return "https://time.haxkcd.com/";}, checkGeo()),
+    Puzzle('1 - Geohashing', function(username){ return "https://time.haxkcd.com/";}, checkGeo()),
     /* puzzle 2 - Bobby */
-    Puzzle(function(username){ return "https://xkcde.com/";}, checkBobby()),
+    Puzzle('2 - Bobby', function(username){ return "https://xkcde.com/";}, checkBobby()),
     /* puzzle 5 - Raptor */
-    Puzzle(function(username){ return "https://raptor.haxkcd.com/play/" + username; }, checkRaptor()),
+    Puzzle('3 - Raptor', function(username){ return "https://raptor.haxkcd.com/play/" + username; }, checkRaptor()),
     /* puzzle 6 - Sports */
-    Puzzle(function(username){ return "https://sports.haxkcd.com/" + username; }, checkSports()),
+    Puzzle('4 - Sports', function(username){ return "https://sports.haxkcd.com/" + username; }, checkSports()),
 ];
 
 config.slackWebhook = "https://hooks.slack.com/services/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";
