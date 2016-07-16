@@ -120,5 +120,6 @@ config.puzzles = [
 ];
 
 config.slackWebhook = "https://hooks.slack.com/services/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";
+config.spamWebhook = "https://hooks.slack.com/services/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";
 
 module.exports = config;
