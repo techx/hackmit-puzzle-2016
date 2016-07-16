@@ -84,7 +84,7 @@ function checkSports() {
   return function(guess, username) {
     var hash = crypto.createHash('sha256');
     hash.update(base + username.toLowerCase());
-    return guess == hash.digest('hex').substring(0, 10);
+    return guess.trim().toLowerCase() === hash.digest('hex').substring(0, 10).toLowerCase();
   };
 }
 
@@ -93,7 +93,7 @@ function checkRaptor() {
   return function(guess, username) {
     var hash = crypto.createHmac('sha256', raptorsecret);
     hash.update('velociraptor:' + username.toLowerCase());
-    return guess.trim().toLowerCase() === hash.digest('hex').toLowerCase();
+    return guess.trim().toLowerCase() === hash.digest('hex').substring(0,10).toLowerCase();
   }
 };
 
