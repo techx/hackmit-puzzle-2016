@@ -39,6 +39,7 @@ app.use(passport.session());
 
 require('./models/PuzzlePart');
 require('./models/Submission');
+require('./models/UniCommand');
 require('./models/User');
 
 app.use('/', routes);

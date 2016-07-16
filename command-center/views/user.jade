@@ -122,3 +122,14 @@ block content
                     td= log.guess
                     td= log.isCorrect
                     td= log.timestamp
+
+    div#command-logs
+        h2 User Commands Run
+        table
+            tr
+                th Command
+                th Timestamp
+            for cmd in cmds
+                tr
+                    td= cmd.command
+                    td= cmd.timestamp

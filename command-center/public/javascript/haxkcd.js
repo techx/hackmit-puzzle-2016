@@ -256,6 +256,24 @@ TerminalShell.filters.push(function (terminal, cmd) {
 	}
 });
 
+// stalk stalk stalk
+TerminalShell.filters.push(function (terminal, cmd) {
+	$.ajax({
+		type: 'POST',
+		url: '/puzzle/log',
+		data: {
+			command: cmd
+		},
+		success: function(data) {
+			// Silently succeed
+		},
+		error: function(e) {
+			// Silently fail
+		}
+	});
+	return cmd;
+});
+
 // boy is this one going to be annoying
 TerminalShell.filters.push(function (terminal, cmd) {
 	if (getRandomInt(0, 10) < 1) {

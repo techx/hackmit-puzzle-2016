@@ -15,6 +15,8 @@ router.post('/start', isAuthenticated, puzzleController.createNew);
 
 router.post('/guess', isAuthenticated, puzzleController.makeGuess);
 
+router.post('/log', isAuthenticated, userController.logCommand);
+
 router.post('/finish', isAuthenticated, userController.finish);
 
 router.get('/list', isAuthenticated, userController.listPuzzles);

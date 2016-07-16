@@ -82,6 +82,26 @@ UserController.finish = function(req, res) {
     });
 }
 
+UserController.logCommand = function(req, res) {
+    mongoose.model('User').findById(req.user._id, function(err, user) {
+        if (err) {
+            respondWithError(err, res);
+        } else if (!user) {
+            res.status(404).send({ "error": "This user does not exist." });
+        } else {
+            mongoose
+              .model('UniCommand')
+              .logCommandForUser(user.githubUsername, req.body.command, function(err) {
+                if (err) {
+                    respondWithError(err, res);
+                } else {
+                    res.status(200).send({ "message": "much wow" });
+                }
+              });
+        }
+    });
+}
+
 //////////////////////////////////////////
 // Below here only accessible by admins //
 //////////////////////////////////////////
@@ -101,9 +121,17 @@ UserController.getUserInfo = function(req, res) {
                         if (err){
                             res.status(500).send(err);
                         } else {
-                            res.status(200).render("user", { user: user,
-                                                             puzzleParts: puzzleParts,
-                                                             logs: logs });
+                            user.getUniCommandLogs(function(err, cmds){
+                                if (err){
+                                    res.status(500).send(err);
+                                } else {
+                                    res.status(200)
+                                       .render("user", { user: user,
+                                                         puzzleParts: puzzleParts,
+                                                         logs: logs,
+                                                         cmds: cmds });
+                                }
+                            });
                         }
                     });
                 }

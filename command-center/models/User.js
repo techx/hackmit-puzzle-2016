@@ -34,6 +34,10 @@ userSchema.method('getSubmissionLogs', function(callback){
     mongoose.model('Submission').find({ 'user': this.githubUsername }).sort({ 'timestamp': 1 }).exec(callback);
 });
 
+userSchema.method('getUniCommandLogs', function(callback){
+    mongoose.model('UniCommand').find({ 'user': this.githubUsername }).sort({ 'timestamp': 1 }).exec(callback);
+})
+
 // flag user for being suspicious
 userSchema.method('flag', function(reason, flaggedBy, callback){
     this.isSuspicious = true;
