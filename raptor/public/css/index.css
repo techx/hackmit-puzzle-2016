@@ -1,0 +1,38 @@
+html, body {
+  font-family: 'xkcd', Sans-Serif;
+  color: #fff;
+  font-size: 12px;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  margin: 0;
+  padding: 0;
+  background: #0b3b4b;
+}
+a{
+  text-decoration:none;
+  color: #fff;
+}
+a:hover{
+  text-shadow: 2px 2px #f04681;
+}
+h1 {
+  padding-top: 100px;
+  text-align: center;
+  font-family: 'xkcd', Sans-Serif;
+  font-size: 40px; 
+}
+h2 {
+  text-align: center;
+  font-family: 'xkcd', Sans-Serif;
+  font-size: 20px; 
+}
+@font-face {
+  font-family: 'xkcd';
+  src: url('../xkcd.otf') format('opentype');
+}
+#cred {
+  width: 100px;
+  position: fixed;
+  left: 47%;
+  bottom: 10px;
+}
