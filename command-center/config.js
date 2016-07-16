@@ -70,17 +70,18 @@ function check(answer) {
 
 function checkGeo() {
 	var possibleLocations = [
-        ["42.19702","71.59781"],
-        ["79.71341","85.14546"],
-        ["31.86541","29.46147"],
-        ["21.37220","157.17055"],
-        ["48.98947","2.53996"],
-        ["33.36566","70.03743"]
+        [/42\.1970[123]/,/71\.5978[012]/],
+        [/79\.7134[012]/,/85\.1454[567]/],
+        [/31\.8654[012]/,/29\.4614[678]/],
+        [/21\.3722[01]/,/157\.1705[456]/],
+        [/48\.9894[678]/, /2\.5399[567]/],
+        [/33\.3656[567]/, /70\.0374[234]/]
 	];
 	return function(guess, username) {
     guess = guess.replace('-', '');
 		for (var i = 0; i < possibleLocations.length; i++) {
-			if(guess.indexOf(possibleLocations[i][0]) != -1 && guess.indexOf(possibleLocations[i][1]) != -1) {
+			//if(guess.indexOf(possibleLocations[i][0]) != -1 && guess.indexOf(possibleLocations[i][1]) != -1) {
+			if (possibleLocations[i][0].test(guess) && possibleLocations[i][1].test(guess)) {
 				return true;
 			}
 		}
