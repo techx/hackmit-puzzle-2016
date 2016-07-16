@@ -38,7 +38,8 @@ config.admins = [ "katexyu",
                   "cmnord",
                   "stefren",
                   "zareenc",
-                  "andrewilyas"
+                  "andrewilyas",
+                  "lzhang124"
                   ];
 
 function checkBobby(answer){
