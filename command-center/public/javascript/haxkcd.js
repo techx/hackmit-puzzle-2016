@@ -267,7 +267,7 @@ TerminalShell.filters.push(function (terminal, cmd) {
 
 TerminalShell.commands['__segfault'] = function(terminal) {
 	terminal.print('Segmentation fault (core dumped)');
-}
+};
 
 TerminalShell.commands['shutdown'] = TerminalShell.commands['poweroff'] = function(terminal) {
 	if (this.sudo) {
@@ -430,13 +430,13 @@ TerminalShell.commands['man'] = function(terminal, what) {
 
 TerminalShell.commands['find'] = function(terminal, what) {
 	terminal.print('I can\'t find what you\'re looking for.');
-}
+};
 
 TerminalShell.commands['dogemit'] = function(terminal, what) {
 	terminal
 	    .print($('<p>')
 		.html('<a href="https://www.youtube.com/watch?v=sd4bqmP_460">much amuse</a>'));
-}
+};
 
 // No peeking!
 TerminalShell.commands['help'] = TerminalShell.commands['halp'] = function(terminal) {
@@ -444,11 +444,18 @@ TerminalShell.commands['help'] = TerminalShell.commands['halp'] = function(termi
 		'  start                       - start the puzzle',
 		'  list                        - list puzzles',
 		'  submit <number> <guess>     - submit a solution for a puzzle',
-		'  finish <your email address> - finish the puzzle'
+		'  finish <your email address> - finish the puzzle',
+		'  slack                       - get information on how to access the puzzle slack'
 	], function(num, line) {
 		terminal.print(line);
 	});
 };
+
+TerminalShell.commands['slack'] = function(terminal) {
+	terminal
+	    .print($('<p>')
+		.html('<a href="http://slack.haxkcd.com/">slack.haxkcd.com</a>'));
+}
 
 TerminalShell.fallback = function(terminal, cmd) {
 	oneliners = {

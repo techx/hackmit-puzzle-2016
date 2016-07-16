@@ -1,0 +1,66 @@
+@font-face {
+    font-family: XKCD;
+    src: url(xkcd.otf)
+}
+
+#loc {
+    width: 100%;
+    height: 50px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5vh;
+    font-family: XKCD;
+}
+
+h1 {
+    margin-left: 15%;
+    margin-top: 21%;
+    font-family: XKCD;
+}
+
+#clock {
+    width: 30%;
+    margin-left: 35%;
+    margin-right: 35%;
+    position: absolute;
+    top: 50px;
+    overflow: hidden;
+}
+
+#pmdot {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    font-size: 2vw;
+    font-family: XKCD;
+}
+
+#date {
+    position: absolute;
+    top: 20%;
+    right: 20%;
+    font-size: 2vw;
+    font-family: XKCD;
+}
+
+#pmdot.False {
+    color: #EEE;
+}
+
+#pmdot.True {
+    color: #000;
+}
+
+#time {
+    font-family: XKCD;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 8vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
