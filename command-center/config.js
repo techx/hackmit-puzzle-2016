@@ -68,6 +68,7 @@ function check(answer) {
 function checkGeo() {
 	var possibleLocations = [("42.19702","-71.59781"), ("79.71341","-85.14546"), ("31.86541","29.46147"), ("21.37220","157.17055"), ("48.98947","2.53996"), ("-33.36566","-70.03743")];
 	return function(guess, username) {
+    guess = guess.replace('-', '');
 		for (var i = 0; i < possibleLocations.length; i++) {
 			if(guess.indexOf(possibleLocations[i][0]) != -1 && guess.indexOf(possibleLocations[i][1]) != -1) {
 				return true;
