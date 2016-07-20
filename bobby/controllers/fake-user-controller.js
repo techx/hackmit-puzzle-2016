@@ -14,12 +14,15 @@ UserController.register = function(req, res, next) {
         if (err) return next(err);
         if (!user) return res.send(404);
 
-        if (user.accounts.length > 200) {
+        if (user.accounts.length > 500) {
             return res.send("woah. You are making way too many accounts and have been blocked. This is not part of the puzzle. Please email us with an explanation");
         }
 
         user.createFakeAccount(username, password, function(err){
             if (err) return next(err);
+            if (user.accounts.length > 200) {
+                return res.send("OK \n Looks like you are making a bunch of accounts. Hint: You don't need to.");
+            }
             res.send("OK");
         });
     });
